@@ -1,8 +1,11 @@
 /* eslint-disable */
+import type { Config } from '@jest/types';
+
 export default {
   displayName: 'app-nest-1',
   preset: '../../jest.preset.js',
-  testEnvironment: 'node',
+  // Using a custom testEnvironment below
+  // testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': [
       'ts-jest',
@@ -21,4 +24,10 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/app-nest-1',
-};
+  globalSetup: './jest/standalone/globalSetup.ts',
+  globalTeardown: './jest/standalone/globalTeardown.ts',
+  testEnvironment: './jest/standalone/testEnvironment.ts',
+  setupFilesAfterEnv: [
+    './jest/standalone/setupFilesAfterEnv/setupDatabaseConnection.ts',
+  ],
+} as Config.InitialOptions;
